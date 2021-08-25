@@ -33,7 +33,9 @@ def Version():
 
 def Digital(type):
     type = type.lower()
-    if type == "cashornothing":
+    if type == "gap":
+        return digital_simple.Digital_Gap()
+    elif type == "cashornothing":
         return digital_simple.Digital_CashOrNothing()
     elif type == "assetornothing":
         return digital_simple.Digital_AssetOrNothing()

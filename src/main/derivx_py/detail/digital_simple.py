@@ -22,6 +22,37 @@
 
 import utility
 
+class Digital_Gap(object):
+    def __init__(self):
+        self.s = 0.0 # 标的价格
+        self.k_1 = 0.0 # 行权价格
+        self.k_2 = 0.0 # 行权价格
+        self.r = 0.0 # 无风险利率
+        self.q = 0.0 # 年化分红率
+        self.sigma = 0.0 # 波动率
+        self.t = 0.0 # 年化到期期限
+        self.is_call = True # 看涨看跌
+        
+        self.error_message = ""
+
+    def GetError(self):
+        return self.error_message
+
+    def InitArgs(self, config): # config：dict
+        try:
+            self.s = config["s"]
+            self.k_1 = config["k_1"]
+            self.k_2 = config["k_2"]
+            self.r = config["r"]
+            self.q = config["q"]
+            self.sigma = config["sigma"]
+            self.t = config["t"]
+            self.is_call = config["is_call"]
+            return 0
+        except Exception as e:
+            self.error_message = "参数设置发生异常！%s" % e
+        return -1
+
 class Digital_CashOrNothing(object):
     def __init__(self):
         self.s = 0.0 # 标的价格
