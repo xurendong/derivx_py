@@ -31,7 +31,7 @@ git clone https://github.com/xurendong/derivx_py.git
 import derivx
 print(derivx.Version())
 ```
-For more usages please refer to examples in [derivx_py](https://github.com/xurendong/derivx_py/tree/main/src/derivx_py) folder.
+For more usages please refer to examples in [derivx_py](https://github.com/xurendong/derivx_py/tree/main/src/main/derivx_py) folder.
 
 [DerivX Python Implementation](https://github.com/xurendong/derivx_py) is not dependent on pandas and matplotlib, but if you want to run examples, you'd better install them with:
 ```bash

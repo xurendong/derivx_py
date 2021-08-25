@@ -1,4 +1,8 @@
+# Eclipse project files
 .metadata
+src/.project
+src/.pydevproject
+src/.settings
 
 # Prerequisites
 *.d
