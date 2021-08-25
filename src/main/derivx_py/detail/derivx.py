@@ -26,7 +26,7 @@ import vanilla_american
 import autocall_phoenix
 import autocall_snowball
 
-g_version = "V0.3.1-Beta Build 20210824"
+g_version = "V0.1.0-Beta Build 20210825"
 
 def Version():
     return g_version

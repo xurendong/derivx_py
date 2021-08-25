@@ -1,5 +1,6 @@
 # Eclipse project files
 .metadata
+__pycache__
 src/.project
 src/.pydevproject
 src/.settings
