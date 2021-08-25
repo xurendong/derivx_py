@@ -15,9 +15,9 @@ pip install derivx
 import derivx
 print(derivx.Version())
 ```
-For more usages please refer to examples in [derivx](https://github.com/xurendong/derivx/tree/main/exe/windows/bin/derivx_py) folder.
+For more usages please refer to examples in [derivx_py](https://github.com/xurendong/derivx/tree/main/exe/windows/bin/derivx_py) folder.
 
-DerivX Python Wrapper is not dependent on numpy, pandas and matplotlib, but if you want to run examples, you'd better install them with:
+[DerivX Python Wrapper](https://github.com/xurendong/derivx/tree/main/exe/windows/bin/derivx_py) is not dependent on numpy, pandas and matplotlib, but if you want to run examples, you'd better install them with:
 ```bash
 pip install numpy pandas matplotlib
 ```
@@ -31,9 +31,9 @@ git clone https://github.com/xurendong/derivx_py.git
 import derivx
 print(derivx.Version())
 ```
-For more usages please refer to examples in [derivx](https://github.com/xurendong/derivx/tree/main/exe/windows/bin/derivx_py) folder.
+For more usages please refer to examples in [derivx_py](https://github.com/xurendong/derivx_py/tree/main/src/derivx_py) folder.
 
-DerivX Python Implementation is not dependent on pandas and matplotlib, but if you want to run examples, you'd better install them with:
+[DerivX Python Implementation](https://github.com/xurendong/derivx_py) is not dependent on pandas and matplotlib, but if you want to run examples, you'd better install them with:
 ```bash
 pip install pandas matplotlib
 ```
