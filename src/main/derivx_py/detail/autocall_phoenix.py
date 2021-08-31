@@ -49,8 +49,7 @@ class Autocall_Phoenix(object):
         self.knock_o_steps = 0.0 # 敲出比例逐月递减率
         self.knock_i_occur = False # 是否已经发生敲入
         self.knock_i_margin_call = True # 是否敲入后可追加保证金
-        self.coupon_rate = 0.0 # 客户单次或年化票息
-        self.coupon_rate_ann = True # false 为单次收益率，true 为年化收益率
+        self.coupon_rate = 0.0 # 客户单次票息
         self.margin_rate = 0.0 # 保证金比例
         self.margin_interest = 0.0 # 保证金利率
         self.calc_price = np.array([]) # 计算价格序列
@@ -88,7 +87,6 @@ class Autocall_Phoenix(object):
             self.knock_i_occur = config["knock_i_occur"]
             self.knock_i_margin_call = config["knock_i_margin_call"]
             self.coupon_rate = config["coupon_rate"]
-            self.coupon_rate_ann = config["coupon_rate_ann"]
             self.margin_rate = config["margin_rate"]
             self.margin_interest = config["margin_interest"]
             self.calc_price = config["calc_price"].copy() # copy
