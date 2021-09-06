@@ -29,7 +29,7 @@ class Digital_Gap(object):
         self.k_2 = 0.0 # 行权价格
         self.r = 0.0 # 无风险利率
         self.q = 0.0 # 年化分红率
-        self.sigma = 0.0 # 波动率
+        self.v = 0.0 # 波动率
         self.t = 0.0 # 年化到期期限
         self.is_call = True # 看涨看跌
         
@@ -45,7 +45,7 @@ class Digital_Gap(object):
             self.k_2 = config["k_2"]
             self.r = config["r"]
             self.q = config["q"]
-            self.sigma = config["sigma"]
+            self.v = config["v"]
             self.t = config["t"]
             self.is_call = config["is_call"]
             return 0
@@ -59,7 +59,7 @@ class Digital_CashOrNothing(object):
         self.k = 0.0 # 行权价格
         self.r = 0.0 # 无风险利率
         self.q = 0.0 # 年化分红率
-        self.sigma = 0.0 # 波动率
+        self.v = 0.0 # 波动率
         self.t = 0.0 # 年化到期期限
         self.cash = 0.0 # 现金回报
         self.is_call = True # 看涨看跌
@@ -75,7 +75,7 @@ class Digital_CashOrNothing(object):
             self.k = config["k"]
             self.r = config["r"]
             self.q = config["q"]
-            self.sigma = config["sigma"]
+            self.v = config["v"]
             self.t = config["t"]
             self.cash = config["cash"]
             self.is_call = config["is_call"]
@@ -90,7 +90,7 @@ class Digital_AssetOrNothing(object):
         self.k = 0.0 # 行权价格
         self.r = 0.0 # 无风险利率
         self.q = 0.0 # 年化分红率
-        self.sigma = 0.0 # 波动率
+        self.v = 0.0 # 波动率
         self.t = 0.0 # 年化到期期限
         self.is_call = True # 看涨看跌
         
@@ -105,7 +105,7 @@ class Digital_AssetOrNothing(object):
             self.k = config["k"]
             self.r = config["r"]
             self.q = config["q"]
-            self.sigma = config["sigma"]
+            self.v = config["v"]
             self.t = config["t"]
             self.is_call = config["is_call"]
             return 0
@@ -120,7 +120,7 @@ class Digital_SuperShare(object):
         self.k_h = 0.0 # 高端行权价格
         self.r = 0.0 # 无风险利率
         self.q = 0.0 # 年化分红率
-        self.sigma = 0.0 # 波动率
+        self.v = 0.0 # 波动率
         self.t = 0.0 # 年化到期期限
         
         self.error_message = ""
@@ -135,7 +135,7 @@ class Digital_SuperShare(object):
             self.k_h = config["k_h"]
             self.r = config["r"]
             self.q = config["q"]
-            self.sigma = config["sigma"]
+            self.v = config["v"]
             self.t = config["t"]
             return 0
         except Exception as e:
