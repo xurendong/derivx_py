@@ -56,12 +56,13 @@ def Test_Barrier_Single():
     #     config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, False, False, g_down_out)
     #     if barrier.InitArgs(config.ToArgs()) < 0:
     #         print(barrier.GetError())
-    #         exit(-1)
+    #         return
     #     try:
     #         price = barrier.CalcPrice()
     #         print(price)
     #     except Exception as e:
     #         print("计算价格发生异常！%s" % e)
+    #         return
     
     args_cdo = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
@@ -75,6 +76,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("cdo 计算价格发生异常！%s" % e)
+            return
     
     args_cuo = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_cuo:
@@ -87,6 +89,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("cuo 计算价格发生异常！%s" % e)
+            return
     
     args_cdi = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
@@ -100,6 +103,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("cdi 计算价格发生异常！%s" % e)
+            return
     
     args_cui = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_cui:
@@ -112,6 +116,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("cui 计算价格发生异常！%s" % e)
+            return
     
     args_pdo = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
@@ -125,6 +130,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("pdo 计算价格发生异常！%s" % e)
+            return
     
     args_puo = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_puo:
@@ -137,6 +143,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("puo 计算价格发生异常！%s" % e)
+            return
     
     args_pdi = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
@@ -150,6 +157,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("pdi 计算价格发生异常！%s" % e)
+            return
     
     args_pui = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_pui:
@@ -162,6 +170,7 @@ def Test_Barrier_Single():
             print(price)
         except Exception as e:
             print("pui 计算价格发生异常！%s" % e)
+            return
     
     # Config(s, h, k, x, v, r, q, t, is_call, is_knock, barrier_type)
     
@@ -190,12 +199,13 @@ def Test_Barrier_Single():
     for config in config_list:
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
-            exit(-1)
+            return
         try:
             payoff = barrier.CalcPayoff()
             print(payoff)
         except Exception as e:
             print("计算损益发生异常！%s" % e)
+            return
 
 if __name__ == "__main__":
     Test_Barrier_Single()
