@@ -22,6 +22,11 @@
 
 import derivx
 
+g_up_in    = 1 # 向上敲入
+g_down_in  = 2 # 向下敲入
+g_up_out   = 3 # 向上敲出
+g_down_out = 4 # 向下敲出
+
 class Config(object):
     def __init__(self, s, h, k, x, v, r, q, t, is_call, is_knock, barrier_type):
         self.s = s # 标的价格
@@ -45,10 +50,10 @@ def Test_Barrier_Single():
     # Config(s, h, k, x, v, r, q, t, is_call, is_knock, barrier_type)
     
     # for s in [80.0, 82.0, 84.0, 86.0, 88.0, 90.0, 92.0, 94.0, 96.0, 98.0, 100.0, 102.0, 104.0]:
-    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, True, False, barrier.down_in)
-    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, True, False, barrier.down_out)
-    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, False, False, barrier.down_in)
-    #     config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, False, False, barrier.down_out)
+    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, True, False, g_down_in)
+    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, True, False, g_down_out)
+    #     #config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, False, False, g_down_in)
+    #     config = Config(s, 80.0, 100.0, 0.0, 0.3, 0.03, 0.02, 1.0, False, False, g_down_out)
     #     if barrier.InitArgs(config.ToArgs()) < 0:
     #         print(barrier.GetError())
     #         exit(-1)
@@ -61,7 +66,7 @@ def Test_Barrier_Single():
     args_cdo = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
     for args in args_cdo:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, barrier.down_out)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, g_down_out)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -73,7 +78,7 @@ def Test_Barrier_Single():
     
     args_cuo = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_cuo:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, barrier.up_out)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, g_up_out)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -86,7 +91,7 @@ def Test_Barrier_Single():
     args_cdi = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
     for args in args_cdi:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, barrier.down_in)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, g_down_in)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -98,7 +103,7 @@ def Test_Barrier_Single():
     
     args_cui = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_cui:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, barrier.up_in)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, True, False, g_up_in)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -111,7 +116,7 @@ def Test_Barrier_Single():
     args_pdo = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
     for args in args_pdo:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, barrier.down_out)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, g_down_out)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -123,7 +128,7 @@ def Test_Barrier_Single():
     
     args_puo = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_puo:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, barrier.up_out)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, g_up_out)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -136,7 +141,7 @@ def Test_Barrier_Single():
     args_pdi = [[90.0, 95.0, 0.25], [100.0, 95.0, 0.25], [110.0, 95.0, 0.25], [90.0, 100.0, 0.25], [100.0, 100.0, 0.25], [110.0, 100.0, 0.25],
                 [90.0, 95.0, 0.30], [100.0, 95.0, 0.30], [110.0, 95.0, 0.30], [90.0, 100.0, 0.30], [100.0, 100.0, 0.30], [110.0, 100.0, 0.30]] # k, h, v
     for args in args_pdi:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, barrier.down_in)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, g_down_in)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -148,7 +153,7 @@ def Test_Barrier_Single():
     
     args_pui = [[90.0, 105.0, 0.25], [100.0, 105.0, 0.25], [110.0, 105.0, 0.25], [90.0, 105.0, 0.30], [100.0, 105.0, 0.30], [110.0, 105.0, 0.30]] # k, h, v
     for args in args_pui:
-        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, barrier.up_in)
+        config = Config(100.0, args[1], args[0], 3.0, args[2], 0.08, 0.04, 0.5, False, False, g_up_in)
         if barrier.InitArgs(config.ToArgs()) < 0:
             print(barrier.GetError())
             return
@@ -162,25 +167,25 @@ def Test_Barrier_Single():
     
     config_list = []
     
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, barrier.down_out)) # s - k = 10.0
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, barrier.down_out)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, barrier.down_out)) # k - s = 15.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, barrier.down_out)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, g_down_out)) # s - k = 10.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, g_down_out)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, g_down_out)) # k - s = 15.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, g_down_out)) # x = 3.0
     
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, barrier.up_out)) # s - k = 10.0
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, barrier.up_out)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, barrier.up_out)) # k - s = 15.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, barrier.up_out)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, g_up_out)) # s - k = 10.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, g_up_out)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, g_up_out)) # k - s = 15.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, g_up_out)) # x = 3.0
     
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, barrier.down_in)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, barrier.down_in)) # s - k = 10.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, barrier.down_in)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, barrier.down_in)) # k - s = 15.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, g_down_in)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, g_down_in)) # s - k = 10.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, g_down_in)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, g_down_in)) # k - s = 15.0
     
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, barrier.up_in)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, barrier.up_in)) # s - k = 10.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, barrier.up_in)) # x = 3.0
-    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, barrier.up_in)) # k - s = 15.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, False, g_up_in)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 90.0, 3.0, 0.0, 0.0, 0.0, 0.0, True, True, g_up_in)) # s - k = 10.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, False, g_up_in)) # x = 3.0
+    config_list.append(Config(100.0, 0.0, 115.0, 3.0, 0.0, 0.0, 0.0, 0.0, False, True, g_up_in)) # k - s = 15.0
     
     for config in config_list:
         if barrier.InitArgs(config.ToArgs()) < 0:
