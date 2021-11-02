@@ -72,14 +72,16 @@ def sb_E(eta, x, s, h, v, r, q, t): # s h v t != 0
     y2 = sb_y2(s, h, v, u, t)
     return x * np.exp(-r * t) * (stats.norm.cdf(eta * (x2 - v * t ** 0.5)) - (h / s) ** (2.0 * u) * stats.norm.cdf(eta * (y2 - v * t ** 0.5)))
 
-def sb_F(eta, x, s, h, v, r, q, t): # s v t != 0
+def sb_F(eta, x, s, h, v, r, q, t, is_kop_delay): # s v t != 0
     u = sb_u(r, q, v)
-    n = sb_n(r, v, u)
+    n = sb_n(r, v, u) # 立即支付
+    if is_kop_delay == True: # 延迟支付
+        n = (r ** 2 + v ** 4 / 4.0 + r * v ** 2) ** 0.5 / v ** 2
     z = sb_z(s, h, v, n, t)
     return x * ((h / s) ** (u + n) * stats.norm.cdf(eta * z) + (h / s) ** (u - n) * stats.norm.cdf(eta * (z - 2.0 * n * v * t ** 0.5)))
 
 class Config(object):
-    def __init__(self, s, h, k, x, v, r, q, t, is_call, is_knock, barrier_type):
+    def __init__(self, s, h, k, x, v, r, q, t, p, is_call, is_knock, is_kop_delay, barrier_type):
         self.s = s # 标的价格
         self.h = h # 障碍价格
         self.k = k # 行权价格
@@ -88,8 +90,10 @@ class Config(object):
         self.r = r # 无风险利率
         self.q = q # 年化分红率
         self.t = t # 年化到期期限
+        self.p = p # 参与率，未敲出情况下客户对收益的占比要求
         self.is_call = is_call # 看涨看跌
         self.is_knock = is_knock # 是否已经敲入敲出
+        self.is_kop_delay = is_kop_delay # 敲出后是立即还是延期支付资金
         self.barrier_type = barrier_type # 障碍类型
 
     def ToArgs(self):
@@ -129,8 +133,10 @@ class Barrier_Single(object):
             self.r = config["r"]
             self.q = config["q"]
             self.t = config["t"]
+            self.p = config["p"]
             self.is_call = config["is_call"]
             self.is_knock = config["is_knock"]
+            self.is_kop_delay = config["is_kop_delay"]
             self.barrier_type = config["barrier_type"]
             return 0
         except Exception as e:
@@ -147,13 +153,13 @@ class Barrier_Single(object):
                 if self.k >= self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A + E
+                    result = self.p * A + E
                 if self.k < self.h:
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = B - C + D + E
+                    result = self.p * (B - C + D) + E
             else: # 看跌认沽
                 eta = -1.0
                 phi = -1.0
@@ -163,11 +169,11 @@ class Barrier_Single(object):
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - B + D + E
+                    result = self.p * (A - B + D) + E
                 if self.k < self.h:
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = C + E
+                    result = self.p * C + E
         elif self.barrier_type == self.down_in:
             if self.is_call == True: # 看涨认购
                 eta = 1.0
@@ -176,13 +182,13 @@ class Barrier_Single(object):
                 if self.k >= self.h:
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = C + E
+                    result = self.p * C + E
                 if self.k < self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - B + D + E
+                    result = self.p * (A - B + D) + E
             else: # 看跌认沽
                 eta = 1.0
                 phi = -1.0
@@ -192,26 +198,26 @@ class Barrier_Single(object):
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = B - C + D + E
+                    result = self.p * (B - C + D) + E
                 if self.k < self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     E = sb_E(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A + E
+                    result = self.p * A + E
         elif self.barrier_type == self.up_out:
             if self.is_call == True: # 看涨认购
                 eta = -1.0
                 phi = 1.0
                 # k == h 时下面两组 result 相同
                 if self.k >= self.h:
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = F # self.p * 0.0 + F
                 if self.k < self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - B + C - D + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (A - B + C - D) + F
             else: # 看跌认沽
                 eta = -1.0
                 phi = -1.0
@@ -219,13 +225,13 @@ class Barrier_Single(object):
                 if self.k >= self.h:
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = B - D + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (B - D) + F
                 if self.k < self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - C + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (A - C) + F
         elif self.barrier_type == self.down_out:
             if self.is_call == True: # 看涨认购
                 eta = 1.0
@@ -234,13 +240,13 @@ class Barrier_Single(object):
                 if self.k >= self.h:
                     A = sb_A(phi, self.s, self.k, self.v, self.r, self.q, self.t)
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - C + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (A - C) + F
                 if self.k < self.h:
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = B - D + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (B - D) + F
             else: # 看跌认沽
                 eta = 1.0
                 phi = -1.0
@@ -250,11 +256,11 @@ class Barrier_Single(object):
                     B = sb_B(phi, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     C = sb_C(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
                     D = sb_D(phi, eta, self.s, self.h, self.k, self.v, self.r, self.q, self.t)
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = A - B + C - D + F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = self.p * (A - B + C - D) + F
                 if self.k < self.h:
-                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t)
-                    result = F
+                    F = sb_F(eta, self.x, self.s, self.h, self.v, self.r, self.q, self.t, self.is_kop_delay)
+                    result = F # self.p * 0.0 + F
         else:
             self.error_message = "障碍类型 %d 不存在！" % self.barrier_type
             raise Exception(self.error_message)
