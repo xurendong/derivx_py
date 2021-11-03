@@ -109,8 +109,10 @@ class Barrier_Single(object):
         self.r = 0.0 # 无风险利率
         self.q = 0.0 # 年化分红率
         self.t = 0.0 # 年化到期期限
+        self.p = 0.0 # 参与率，未敲出情况下客户对收益的占比要求
         self.is_call = True # 看涨看跌
         self.is_knock = False # 是否已经敲入敲出
+        self.is_kop_delay = False # 敲出后是立即还是延期支付资金
         self.barrier_type = 0 # 障碍类型
         
         self.up_in    = 1 # 向上敲入
