@@ -21,13 +21,14 @@
 # Be sure to retain the above copyright notice and conditions.
 
 import barrier_single
+import barrier_double
 import digital_simple
 import vanilla_european
 import vanilla_american
 import autocall_phoenix
 import autocall_snowball
 
-g_version = "V0.1.0-Beta Build 20211028"
+g_version = "V0.1.0-Beta Build 20211103"
 
 def Version():
     return g_version
@@ -36,6 +37,8 @@ def Barrier(type):
     type = type.lower()
     if type == "single":
         return barrier_single.Barrier_Single()
+    elif type == "double":
+        return barrier_double.Barrier_Double()
 
 def Digital(type):
     type = type.lower()
