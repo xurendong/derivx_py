@@ -28,6 +28,7 @@ import derivx
 
 def FigureResult(array_s, array_t, result):
     figure = plt.figure()
+    #ax = Axes3D(figure)
     ax = Axes3D(figure, auto_add_to_figure = False)
     figure.add_axes(ax)
     x = array_t * 250

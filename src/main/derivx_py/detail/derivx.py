@@ -25,10 +25,11 @@ import barrier_double
 import digital_simple
 import vanilla_european
 import vanilla_american
+import autocall_booster
 import autocall_phoenix
 import autocall_snowball
 
-g_version = "V0.1.0-Beta Build 20211103"
+g_version = "V0.1.1-Beta Build 20211111"
 
 def Version():
     return g_version
@@ -60,7 +61,9 @@ def Vanilla(type):
 
 def Autocall(type):
     type = type.lower()
-    if type == "phoenix":
+    if type == "booster":
+        return autocall_booster.Autocall_Booster()
+    elif type == "phoenix":
         return autocall_phoenix.Autocall_Phoenix()
     elif type == "snowball":
         return autocall_snowball.Autocall_Snowball()

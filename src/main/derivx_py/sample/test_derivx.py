@@ -25,6 +25,11 @@ import derivx
 def Test_DerivX():
     print(derivx.Version())
 
+def Test_Barrier():
+    barrier = derivx.Barrier("Single")
+    
+    barrier = derivx.Barrier("Double")
+
 def Test_Digital():
     digital = derivx.Digital("CashOrNothing")
     
@@ -33,17 +38,20 @@ def Test_Digital():
     digital = derivx.Digital("SuperShare")
 
 def Test_Vanilla():
-    vanilla = derivx.Vanilla("European")
-    
     vanilla = derivx.Vanilla("American")
+    
+    vanilla = derivx.Vanilla("European")
 
 def Test_Autocall():
+    autocall = derivx.Autocall("Booster")
+    
     autocall = derivx.Autocall("Phoenix")
     
     autocall = derivx.Autocall("Snowball")
 
 if __name__ == "__main__":
     Test_DerivX()
+    Test_Barrier()
     Test_Digital()
     Test_Vanilla()
     Test_Autocall()

@@ -66,6 +66,7 @@ class Config(object):
 
 def FigureResult(config, result):
     figure = plt.figure()
+    #ax = Axes3D(figure)
     ax = Axes3D(figure, auto_add_to_figure = False)
     figure.add_axes(ax)
     x = np.arange(0, config.runs_step, 1)
