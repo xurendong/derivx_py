@@ -92,7 +92,6 @@ class Config(object):
         self.t = t # 年化到期期限
         self.p = p # 参与率，未敲出情况下客户对收益的占比要求
         self.is_call = is_call # 看涨看跌
-        self.is_knock = is_knock # 是否已经敲入敲出
         self.is_kop_delay = is_kop_delay # 敲出后是立即还是延期支付资金
         self.barrier_type = barrier_type # 障碍类型
 
@@ -111,7 +110,6 @@ class Barrier_Single(object):
         self.t = 0.0 # 年化到期期限
         self.p = 0.0 # 参与率，未敲出情况下客户对收益的占比要求
         self.is_call = True # 看涨看跌
-        self.is_knock = False # 是否已经敲入敲出
         self.is_kop_delay = False # 敲出后是立即还是延期支付资金
         self.barrier_type = 0 # 障碍类型
         
@@ -137,7 +135,6 @@ class Barrier_Single(object):
             self.t = config["t"]
             self.p = config["p"]
             self.is_call = config["is_call"]
-            self.is_knock = config["is_knock"]
             self.is_kop_delay = config["is_kop_delay"]
             self.barrier_type = config["barrier_type"]
             return 0
@@ -272,45 +269,45 @@ class Barrier_Single(object):
         result = 0.0
         if self.barrier_type == self.up_in:
             if self.is_call == True: # 看涨认购
-                if self.is_knock == True: # s >= h 已 向上敲入
+                if self.s >= self.h: # s >= h 已 向上敲入
                     result = max(self.s - self.k, 0.0)
                 else: # s < h 未 向上敲入
                     result = self.x
             else: # 看跌认沽
-                if self.is_knock == True: # s >= h 已 向上敲入
+                if self.s >= self.h: # s >= h 已 向上敲入
                     result = max(self.k - self.s, 0.0)
                 else: # s < h 未 向上敲入
                     result = self.x
         elif self.barrier_type == self.down_in:
             if self.is_call == True: # 看涨认购
-                if self.is_knock == True: # s <= h 已 向下敲入
+                if self.s <= self.h: # s <= h 已 向下敲入
                     result = max(self.s - self.k, 0.0)
                 else: # s > h 未 向下敲入
                     result = self.x
             else: # 看跌认沽
-                if self.is_knock == True: # s <= h 已 向下敲入
+                if self.s <= self.h: # s <= h 已 向下敲入
                     result = max(self.k - self.s, 0.0)
                 else: # s > h 未 向下敲入
                     result = self.x
         elif self.barrier_type == self.up_out:
             if self.is_call == True: # 看涨认购
-                if self.is_knock == True: # s >= h 已 向上敲出
+                if self.s >= self.h: # s >= h 已 向上敲出
                     result = self.x
                 else: # s < h 未 向上敲出
                     result = max(self.s - self.k, 0.0)
             else: # 看跌认沽
-                if self.is_knock == True: # s >= h 已 向上敲出
+                if self.s >= self.h: # s >= h 已 向上敲出
                     result = self.x
                 else: # s < h 未 向上敲出
                     result = max(self.k - self.s, 0.0)
         elif self.barrier_type == self.down_out:
             if self.is_call == True: # 看涨认购
-                if self.is_knock == True: # s <= h 已 向下敲出
+                if self.s <= self.h: # s <= h 已 向下敲出
                     result = self.x
                 else: # s > h 未 向下敲出
                     result = max(self.s - self.k, 0.0)
             else: # 看跌认沽
-                if self.is_knock == True: # s <= h 已 向下敲出
+                if self.s <= self.h: # s <= h 已 向下敲出
                     result = self.x
                 else: # s > h 未 向下敲出
                     result = max(self.k - self.s, 0.0)
