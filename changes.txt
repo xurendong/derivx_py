@@ -5,6 +5,7 @@
  - 标准欧式单障碍增加参与率参数并更新示例。
  - 增加 Barrier Double 标准欧式双障碍期权结构。
  - 增加 Autocall Booster 结构及其示例。
+ - 完善 Barrier Double 结构及其示例。
  - 移除 Barrier Single 中 is_knock 参数，Payoff 改由价格 s 判断计算。
 
 2021-08-25 0.1.0:
