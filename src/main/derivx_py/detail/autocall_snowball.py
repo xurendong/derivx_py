@@ -28,7 +28,7 @@ class Autocall_Snowball(object):
     def __init__(self):
         self.rand_rows = 0 # 随机数据行数 # InitRand
         self.rand_cols = 0 # 随机数据列数 # InitRand
-        self.rand_seed = np.array([]) # 随机数据种子 # InitRand // 非负整数，有效位数不超逻辑处理器数量
+        self.rand_seed = np.array([]) # 随机数据种子 # InitRand # 非负整数，有效位数不超逻辑处理器数量
         
         self.dual_smooth = True # 对偶平滑路径 # InitPath
         self.runs_size = 0 # 模拟路径数量 # InitPath
@@ -38,7 +38,7 @@ class Autocall_Snowball(object):
         self.risk_free_rate = 0.0 # 无风险利率 # InitPath
         self.basis_rate = 0.0 # 股息或贴水 # InitPath
         self.price_limit_ratio = 0.0 # 涨跌停限制幅度 # InitPath
-        self.price_limit_style = 0 # 涨跌停限制方式，0 不限制，1 超限部分移至下日，2 超限部分直接削掉 // InitPath
+        self.price_limit_style = 0 # 涨跌停限制方式，0 不限制，1 超限部分移至下日，2 超限部分直接削掉 # InitPath
         
         self.notional = 0.0 # 名义本金
         self.trade_long = True # 交易方向
