@@ -7,7 +7,7 @@
  - 增加 Autocall Booster 结构及其示例。
  - 完善 Barrier Double 结构及其示例。
  - 移除 Barrier Single 中 is_knock 参数，Payoff 改由价格 s 判断计算。
- - 增加 Stochastic Model 随机过程模型。
+ - 增加 Stochastic Model 随机过程模型及其示例。
 
 2021-08-25 0.1.0:
  - 构建项目基本结构。
