@@ -28,7 +28,8 @@ class Autocall_Phoenix(object):
     def __init__(self):
         self.rand_rows = 0 # 随机数据行数 # InitRand
         self.rand_cols = 0 # 随机数据列数 # InitRand
-        self.rand_seed = np.array([]) # 随机数据种子 # InitRand # 非负整数，有效位数不超逻辑处理器数量
+        self.rand_quasi = False # 随机数据类型 # InitRand # 目前 quasi 随机数据只能使用单核处理
+        self.rand_seed = np.array([]) # 随机数据种子 # InitRand # 非负整数，有效位数不超逻辑处理器数量，目前 quasi 仅第一位有效
         
         self.dual_smooth = True # 对偶平滑路径 # InitPath
         self.runs_size = 0 # 模拟路径数量 # InitPath
@@ -67,6 +68,7 @@ class Autocall_Phoenix(object):
         try:
             self.rand_rows = config["rand_rows"]
             self.rand_cols = config["rand_cols"]
+            self.rand_quasi = config["rand_quasi"]
             self.rand_seed = config["rand_seed"].copy() # copy
             self.dual_smooth = config["dual_smooth"]
             self.runs_size = config["runs_size"]
