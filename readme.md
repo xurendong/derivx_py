@@ -1,7 +1,7 @@
 # DerivX_PY
-V0.1.1-Beta Build 20211208
+V0.1.1-Beta Build 20211214
 
-© 2021-2021 Xu Rendong. All Rights Reserved.
+© 2021-2022 Xu Rendong. All Rights Reserved.
 
 ### Project Summary
 Implementation and application of DerivX by Python.

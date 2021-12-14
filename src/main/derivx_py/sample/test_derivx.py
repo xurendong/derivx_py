@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2021-2021 the DerivX authors
+# Copyright (c) 2021-2022 the DerivX authors
 # All rights reserved.
 #
 # The project sponsor and lead author is Xu Rendong.
@@ -28,7 +28,7 @@ def Test_DerivX():
 def Test_Barrier():
     barrier = derivx.Barrier("Single")
     
-    barrier = derivx.Barrier("Double")
+    barrier = derivx.Barrier("SharkFin")
 
 def Test_Digital():
     digital = derivx.Digital("CashOrNothing")

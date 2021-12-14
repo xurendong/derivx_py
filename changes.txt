@@ -9,6 +9,7 @@
  - 移除 Barrier Single 中 is_knock 参数，Payoff 改由价格 s 判断计算。
  - 增加 Stochastic Model 随机过程模型及其示例。
  - 增加拟随机数生成 rand_quasi 参数。
+ - 鲨鱼鳍结构从单/双障碍中独立出来并更新示例。
 
 2021-08-25 0.1.0:
  - 构建项目基本结构。

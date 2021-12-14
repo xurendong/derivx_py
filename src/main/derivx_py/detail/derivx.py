@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2021-2021 the DerivX authors
+# Copyright (c) 2021-2022 the DerivX authors
 # All rights reserved.
 #
 # The project sponsor and lead author is Xu Rendong.
@@ -21,7 +21,7 @@
 # Be sure to retain the above copyright notice and conditions.
 
 import barrier_single
-import barrier_double
+import barrier_sharkfin
 import digital_simple
 import vanilla_european
 import vanilla_american
@@ -29,7 +29,7 @@ import autocall_booster
 import autocall_phoenix
 import autocall_snowball
 
-g_version = "V0.1.1-Beta Build 20211111"
+g_version = "V0.1.1-Beta Build 20211214"
 
 def Version():
     return g_version
@@ -38,8 +38,8 @@ def Barrier(type):
     type = type.lower()
     if type == "single":
         return barrier_single.Barrier_Single()
-    elif type == "double":
-        return barrier_double.Barrier_Double()
+    elif type == "sharkfin":
+        return barrier_sharkfin.Barrier_SharkFin()
 
 def Digital(type):
     type = type.lower()

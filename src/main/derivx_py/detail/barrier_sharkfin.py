@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
 
-# Copyright (c) 2021-2021 the DerivX authors
+# Copyright (c) 2021-2022 the DerivX authors
 # All rights reserved.
 #
 # The project sponsor and lead author is Xu Rendong.
@@ -24,7 +24,7 @@ import numpy as np
 
 import utility
 
-class Barrier_Double(object):
+class Barrier_SharkFin(object):
     def __init__(self):
         self.rand_rows = 0 # 随机数据行数 # InitRand
         self.rand_cols = 0 # 随机数据列数 # InitRand
@@ -47,10 +47,6 @@ class Barrier_Double(object):
         self.k_l = 0.0 # 行权价格，低
         self.k_h = 0.0 # 行权价格，高
         self.x = 0.0 # 敲出后需支付的资金
-        self.v = 0.0 # 波动率 # 双鲨未用
-        self.r = 0.0 # 无风险利率 # 双鲨未用
-        self.q = 0.0 # 年化分红率 # 双鲨未用
-        self.t = 0.0 # 年化到期期限 # 双鲨未用
         self.p = 0.0 # 参与率，未敲出情况下客户对收益的占比要求
         self.is_kop_delay = False # 敲出后是立即还是延期支付资金
         self.barrier_type = 0 # 障碍类型
@@ -83,10 +79,6 @@ class Barrier_Double(object):
             self.k_l = config["k_l"]
             self.k_h = config["k_h"]
             self.x = config["x"]
-            self.v = config["v"]
-            self.r = config["r"]
-            self.q = config["q"]
-            self.t = config["t"]
             self.p = config["p"]
             self.is_kop_delay = config["is_kop_delay"]
             self.barrier_type = config["barrier_type"]
