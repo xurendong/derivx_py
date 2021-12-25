@@ -49,6 +49,7 @@ class Barrier_SharkFin(object):
         self.x = 0.0 # 敲出后需支付的资金
         self.p = 0.0 # 参与率，未敲出情况下客户对收益的占比要求
         self.is_kop_delay = False # 敲出后是立即还是延期支付资金
+        self.option_type = 0 # 期权类型
         self.barrier_type = 0 # 障碍类型
         self.trade_long = True # 交易方向
         self.price_rate = 0.0 # 价格比率
@@ -81,6 +82,7 @@ class Barrier_SharkFin(object):
             self.x = config["x"]
             self.p = config["p"]
             self.is_kop_delay = config["is_kop_delay"]
+            self.option_type = config["option_type"]
             self.barrier_type = config["barrier_type"]
             self.trade_long = config["trade_long"]
             self.price_rate = config["price_rate"]
